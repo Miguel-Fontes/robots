@@ -8,12 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
         <module name="robots-core" />
+        <module name="robots-rest-api" />
+        <module name="robotsrestapi" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="1.8" />
       <module name="robots" target="1.8" />
       <module name="robots-core" target="1.8" />
+      <module name="robots-rest-api" target="1.8" />
+      <module name="robotsrestapi" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
