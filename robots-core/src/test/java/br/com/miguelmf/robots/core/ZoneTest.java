@@ -83,7 +83,7 @@ class ZoneTest {
         );
 
     }
-    
+
     private Position getZeroPosition() {
         return new Position(0, 0);
     }
