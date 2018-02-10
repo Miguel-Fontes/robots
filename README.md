@@ -1,10 +1,13 @@
 # Robots
 
-[TOC]
-
 ## Build
+### Instruções
 
     TBD
+
+### Status
+- Master: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=master)](https://travis-ci.org/Miguel-Fontes/robots)
+- Dev: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=dev)](https://travis-ci.org/Miguel-Fontes/robots)
 
 ## O Desafio
 Um time de robôs devem ser colocados pela NASA para explorar um terreno em Marte.

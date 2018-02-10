@@ -1,0 +1,13 @@
+language: java
+
+install:
+- mvn clean install -DskipTests -Dmaven.javadoc.skip=true -B -V
+
+sudo: false
+
+script:
+- mvn test -B
+
+notifications:
+  slack:
+    secure: hihYAYhqY6fjrQG9m444rZP/RijfpiI36IQMFcjcqpTiXOIT82puvpJFJwzh0B2dE/HjADSFQeYW4WIlqOnfp1jWeKfCt5o+1e8bofOEtEG9Ik10vdS6Q365Qr2HxIAad13VMYh37gkvMbkva7WVY5LUKJbCoM/JC3tvPPkpYQdo5RqzZxXeS0yby8gbofW8wv33M17zeW8Wh5HLY0uNJMF/dZH52dbpHR2E2iKxC1/pEe8vpzn89XwxBvtth/eNqVMYSrjnaJSiFlDaJr3QZoBJxJTLmd1IaF6VjuUqUqZXS29mfmXFb4+0XIsJrc+W2W1U95/KEUkoPST2bRVqLDs/5H+y98tFYx75u0fmUJa5dyndsUG5tlroyC/Y9DpsyE1BqNVzbNOukJ90n6GiQUAm3IyakKmrmeOnflzWzDmHIH49UVWbwgoNHk2xFxQ+TyJvCVdofVFnNScvx/mkQjLxTiZ1mhKy8hefYEmpJRhHpeYAkHuFUDksPKK/ABbO0vlbY0c4mJKggCJR7aGJ+PD3X9xpblMNzSTW98isMoukW9LutfSc5NkV/ygcd2MOZl5AbSXI8JqTDsrjZHZD6c1pSwH8NXYQ1SfyhJ0/5DukxNDrbP1GllzmaLPaayWJSgdkYaEAP2IEbcs85eAMoxHpG6+qAiKU6vurgfPvwc0=
