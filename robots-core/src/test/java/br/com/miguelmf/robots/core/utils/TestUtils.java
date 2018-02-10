@@ -16,6 +16,14 @@ public class TestUtils {
         return new Robot(0, direction, new Position(0, 0), 1);
     }
 
+    public static Robot moveNTimes(int times, Robot robot) {
+        for (int i = 0; i < times; i++) {
+            robot = robot.move();
+        }
+
+        return robot;
+    }
+
 
 
 }

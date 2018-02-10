@@ -66,6 +66,10 @@ public class Robot {
         return new Robot(id, direction, newPosition, 1);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public Direction getDirection() {
         return direction;
     }

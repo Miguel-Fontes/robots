@@ -11,20 +11,23 @@ import java.util.Optional;
  */
 public class Zone {
     private final Dimension dimension;
-    private final Map<Position, Robot> robots;
+    private final Map<Position, Robot> zone;
+    private final Map<Integer, Robot> robots;
 
     public Zone(Integer length, Integer height) {
         this.dimension = new Dimension(length, height);
         this.robots = new HashMap<>();
+        this.zone = new HashMap<>();
     }
 
     public Zone(Dimension dimension) {
         this.dimension = dimension;
         this.robots = new HashMap<>();
+        this.zone = new HashMap<>();
     }
 
     /**
-     * returns the inner Dimension object that represents the size of the zone
+     * returns the inner Dimension object that represents the dimensions of the zone
      *
      * @return the Zone's Dimension
      */
@@ -39,10 +42,34 @@ public class Zone {
      * @param robot the robot to be added
      * @return this Zone instance
      */
-    public Zone addRobot(Robot robot) {
-        robots.put(robot.getPosition(), robot);
+    public Zone addRobot(Robot robot) throws IllegalPositionException {
+        validatePosition(robot);
+
+        if (robots.containsKey(robot.getId())) {
+            Robot oldRobot = robots.get(robot.getId());
+            zone.remove(oldRobot.getPosition());
+        }
+
+        robots.put(robot.getId(), robot);
+        zone.put(robot.getPosition(), robot);
 
         return this;
+    }
+
+    /**
+     * Validates if the given robot has a valid position.
+     *
+     * @param robot a robot to be validated
+     * @throws IllegalPositionException when Robot's position is not valid
+     */
+    private void validatePosition(Robot robot) throws IllegalPositionException {
+        Position position = robot.getPosition();
+        if (dimension.getLength() <= position.getX()
+                || dimension.getHeight() <= position.getY()) {
+            throw new IllegalPositionException(String.format("Robot's position [%s] is out of the Zone Bounds [%s]", robot.getPosition().toString(), dimension.toString()));
+        }
+
+
     }
 
     /**
@@ -53,6 +80,6 @@ public class Zone {
      * @return a {@code Optional<Robot>} if it exists; otherwise an Optional.Empty
      */
     public Optional<Robot> getRobotAtPosition(Position position) {
-        return Optional.ofNullable(robots.get(position));
+        return Optional.ofNullable(zone.get(position));
     }
 }
