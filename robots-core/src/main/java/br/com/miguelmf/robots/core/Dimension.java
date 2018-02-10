@@ -26,6 +26,14 @@ public class Dimension {
                 Objects.equals(height, dimension.height);
     }
 
+    public Integer getLength() {
+        return length;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
     @Override
     public int hashCode() {
 
