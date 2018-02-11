@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>robots</artifactId>
+        <groupId>br.com.miguelmf</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.com.miguelmf</groupId>
-    <artifactId>robots</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>robots-core</module>
-        <module>robots-rest-api</module>
-        <module>robots-ports</module>
-        <module>robots-nasa</module>
-    </modules>
-    <packaging>pom</packaging>
+    <artifactId>robots-ports</artifactId>
+    <packaging>jar</packaging>
 
-    <name>robots</name>
-    <url>https://github.com/Miguel-Fontes</url>
-    <description>Controle de robôs remotamente (not really)</description>
+    <name>robots-ports</name>
+    <url>http://maven.apache.org</url>
+    <description>JUnit 5 + Compiler Source/Target 1.8</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +48,11 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.0.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>br.com.miguelmf</groupId>
+            <artifactId>robots-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
