@@ -135,4 +135,14 @@ public class Zone {
     private boolean isPositionOverZoneUpperBound(Position position) {
         return position.getX() >= dimension.getLength() || position.getY() >= dimension.getHeight();
     }
+
+    /**
+     * Obtains a Robot by it's id.
+     *
+     * @param robotId the Robot id to be searched
+     * @return return the found Robot or a Optional.Empty otherwise
+     */
+    public Optional<Robot> getRobotById(Integer robotId) {
+        return Optional.ofNullable(robots.get(robotId));
+    }
 }

@@ -5,7 +5,7 @@ package br.com.miguelmf.robots.port.nasa.data;
  * @author Miguel Fontes
  */
 public class ComputeRobotCommandRequest {
-    private final Integer id;
+    private final Integer robotId;
     private final String command;
 
     /**
@@ -14,28 +14,38 @@ public class ComputeRobotCommandRequest {
      */
     @Deprecated
     public ComputeRobotCommandRequest() {
-        id = null;
+        robotId = null;
         command = null;
+    }
+
+    /**
+     * Build a ComputeRobotCommandRequest setting the Robot Id as the default <b>0</b>.
+     *
+     * @param command the command to be computed
+     */
+    public ComputeRobotCommandRequest(String command) {
+        this.robotId = 0;
+        this.command = command;
     }
 
     /**
      * Build a ComputeRobotCommandRequest
      *
-     * @param robotId id of the robot for which the command will be computed
+     * @param robotId robotId of the robot for which the command will be computed
      * @param command the command to be computed
      */
     public ComputeRobotCommandRequest(Integer robotId, String command) {
-        this.id = robotId;
+        this.robotId = robotId;
         this.command = command;
     }
 
     /**
-     * Gets id
+     * Gets robotId
      *
-     * @return value of id
+     * @return value of robotId
      */
-    public Integer getId() {
-        return id;
+    public Integer getRobotId() {
+        return robotId;
     }
 
     /**
@@ -50,7 +60,7 @@ public class ComputeRobotCommandRequest {
     @Override
     public String toString() {
         return "ComputeRobotCommandRequest{" +
-                "id=" + id +
+                "robotId=" + robotId +
                 ", command='" + command + '\'' +
                 '}';
     }

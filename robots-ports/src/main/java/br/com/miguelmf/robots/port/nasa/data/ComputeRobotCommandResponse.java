@@ -1,6 +1,8 @@
 package br.com.miguelmf.robots.port.nasa.data;
 
-/**
+import br.com.miguelmf.robots.core.Direction;
+import br.com.miguelmf.robots.core.Position;
+import br.com.miguelmf.robots.core.Robot; /**
  * ComputeRobotCommandResponse encapsulates data returned by
  * {@link br.com.miguelmf.robots.port.nasa.usecase.ComputeRobotCommand}
  *
@@ -42,5 +44,20 @@ public class ComputeRobotCommandResponse {
         return "ComputeRobotCommandResponse{" +
                 "robotFinalPosition='" + robotFinalPosition + '\'' +
                 '}';
+    }
+
+    /**
+     * Creates a new ComputeRobotCommandResponse from a Robot instance, extracting
+     * the required data for instance creation
+     *
+     * @param robot the robot from which the data will be fetched
+     * @return a ComputeRobotCommandResponse with the data copied from the give Robot instance
+     */
+    public static ComputeRobotCommandResponse from(Robot robot) {
+        Position position = robot.getPosition();
+        Direction direction = robot.getDirection();
+
+        return new ComputeRobotCommandResponse(
+                (String.format("(%s, %s, %s)", position.getX(), position.getY(), direction.getDirection())));
     }
 }
