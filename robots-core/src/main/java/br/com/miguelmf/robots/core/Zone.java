@@ -64,8 +64,7 @@ public class Zone {
      */
     private void validatePosition(Robot robot) throws IllegalPositionException {
         Position position = robot.getPosition();
-        if (dimension.getLength() <= position.getX()
-                || dimension.getHeight() <= position.getY()) {
+        if (isPositionBelowZoneLowerBound(position) || isPositionOverZoneUpperBound(position)) {
             throw new IllegalPositionException(String.format("Robot's position [%s] is out of the Zone Bounds [%s]", robot.getPosition().toString(), dimension.toString()));
         }
 
@@ -81,5 +80,59 @@ public class Zone {
      */
     public Optional<Robot> getRobotAtPosition(Position position) {
         return Optional.ofNullable(zone.get(position));
+    }
+
+    /**
+     * isPositionBelowZoneLowerBound is a predicate that validates if
+     * a given Position is below this Zone lower bound. A Zone Dimension uses a
+     * zero based logic; hence, its lower bound is <b>always</b> zero, thus any
+     * valid position must obey the following predicate:
+     *
+     * <pre>
+     *     For all valid Position (x, y); x >= 0 AND y >= 0;
+     * </pre>
+     *
+     * Hence, isPositionBelowZoneLowerBound is the negation the above rule;
+     *
+     * <pre>
+     *     For all invalid Position below a Zone Lower Bound; !(x >= 0) AND !(y >= 0)
+     * </pre>
+     *
+     * This negation is implemented as an inversion.
+     *
+     * @param position a position to be validated
+     * @return a boolean indicating if the position is invalid (true for invalid)
+     */
+    private boolean isPositionBelowZoneLowerBound(Position position) {
+        return position.getX() < 0 || position.getY() < 0;
+    }
+
+    /**
+     * isPositionOverZoneUpperBound is a predicate that validates if a given Position is
+     * over this Zone upper bound. A Zone upper bound is defined by inner dimension
+     * object, received on construction time. The logic is based on the classic
+     * XxY notation (e.g. 5x5) being x the length and y the height of a Zone, thus
+     * the predicate that defines a valid position is:
+     *
+     * <pre>
+     *     For all valid Position (x, y) on a Zone with Dimension (length, height); x < dimension.length AND y < dimension.height
+     * </pre>
+     *
+     * A Zone dimension use a zero based logic, thus, for a Position (x, y), x AND y must
+     * be below the Dimension length and height.
+     *
+     * isPositionOverZoneUpperBound is the negation of the above rule.
+     *
+     * <pre>
+     *     For all invalid Position above a Zone Upper Bound; !(x < dimension.length) AND !(y < dimension.height)
+     * </pre>
+     *
+     * This negation is implemented as an inversion.
+     *
+     * @param position a position to be validated
+     * @return a boolean indicating if the position is invalid (true for invalid)
+     */
+    private boolean isPositionOverZoneUpperBound(Position position) {
+        return position.getX() >= dimension.getLength() || position.getY() >= dimension.getHeight();
     }
 }
