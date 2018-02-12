@@ -1,7 +1,7 @@
 package br.com.miguelmf.robots.nasa;
 
 import br.com.miguelmf.robots.core.Dimension;
-import br.com.miguelmf.robots.core.IllegalPositionException;
+import br.com.miguelmf.robots.core.Direction;
 import br.com.miguelmf.robots.core.Position;
 import br.com.miguelmf.robots.core.Robot;
 import br.com.miguelmf.robots.core.Zone;
@@ -9,10 +9,8 @@ import br.com.miguelmf.robots.port.nasa.Nasa;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;
 import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
-import br.com.miguelmf.robots.port.nasa.exception.RobotNotFoundException;
+import br.com.miguelmf.robots.port.nasa.exception.IllegalPositionException;
 import org.springframework.stereotype.Service;
-
-import static br.com.miguelmf.robots.core.Direction.NORTH;
 
 /**
  * NasaApi implements the functions defined at the Nasa application contract
@@ -36,28 +34,28 @@ public class NasaApi implements Nasa {
      * @return the Robots final position
      */
     @Override
-    public ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException {
+    public ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException, IllegalCommandException {
         initilize();
 
-        Robot robot = zone.getRobotById(request.getRobotId())
-                .orElseThrow(RobotNotFoundException::new);
+        return ComputeRobotCommandResponse.from(
+                zone.compute(new Robot(request.getRobotId(), Direction.NORTH, new Position(0, 0)),
+                        robot -> executeCommands(request.getCommand(), robot))
+                        .orElseThrow(IllegalPositionException::new));
+    }
 
-        String commands = request.getCommand();
-
+    private Robot executeCommands(String commands, Robot robot) {
         for (char c : commands.toCharArray()) {
             robot = executeCommand(c, robot);
         }
 
-        zone.addRobot(robot);
-
-        return ComputeRobotCommandResponse.from(robot);
+        return robot;
     }
 
     /**
      * executeCommand executes a command indicated by a character named Command Key
      *
      * @param commandKey a character indicating a command to execute
-     * @param robot a robot for which the commands will be executed
+     * @param robot      a robot for which the commands will be executed
      * @return the Robot on the new state after executing the command
      * @throws IllegalCommandException when an invalid command is received
      */
@@ -73,7 +71,7 @@ public class NasaApi implements Nasa {
                 robot = robot.turnLeft();
                 break;
             default:
-                throw new IllegalCommandException (String.format("The [%s] command is invalid!", commandKey));
+                throw new IllegalCommandException(String.format("The [%s] command is invalid!", commandKey));
         }
 
         return robot;
@@ -82,19 +80,14 @@ public class NasaApi implements Nasa {
     /**
      * Initialize a new blank zone with default parameters
      * <ul>
-     *     <li>Dimension (5, 5)</li>
-     *     <li>Default Robot with id 0, Position (0, 0)</li>
+     * <li>Dimension (5, 5)</li>
+     * <li>Default Robot with id 0, Position (0, 0)</li>
      * </ul>
-     *
+     * <p>
      * This method is executed automatically when an NasaApi is instantiated.
      */
     @Override
     public void initilize() {
         zone = new Zone(new Dimension(5, 5));
-        try {
-            zone.addRobot(new Robot(0, NORTH, new Position(0, 0)));
-        } catch (IllegalPositionException e) {
-            e.printStackTrace();
-        }
     }
 }

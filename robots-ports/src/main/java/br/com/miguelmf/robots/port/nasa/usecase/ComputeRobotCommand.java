@@ -1,8 +1,9 @@
 package br.com.miguelmf.robots.port.nasa.usecase;
 
-import br.com.miguelmf.robots.core.IllegalPositionException;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;
+import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
+import br.com.miguelmf.robots.port.nasa.exception.IllegalPositionException;
 
 /**
  * ComputeRobotCommand defines the contract of the functionality that
@@ -18,6 +19,6 @@ public interface ComputeRobotCommand {
      * @param request a request containing the robot data and command to be computed
      * @return the Robot final position and associated data
      */
-    ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException;
+    ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException, IllegalCommandException;
 
 }

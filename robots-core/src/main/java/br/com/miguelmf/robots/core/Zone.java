@@ -3,6 +3,7 @@ package br.com.miguelmf.robots.core;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Zone represents a bidimensional plane where Robots may exist.
@@ -11,19 +12,13 @@ import java.util.Optional;
  */
 public class Zone {
     private final Dimension dimension;
-    private final Map<Position, Robot> zone;
-    private final Map<Integer, Robot> robots;
 
     public Zone(Integer length, Integer height) {
         this.dimension = new Dimension(length, height);
-        this.robots = new HashMap<>();
-        this.zone = new HashMap<>();
     }
 
     public Zone(Dimension dimension) {
         this.dimension = dimension;
-        this.robots = new HashMap<>();
-        this.zone = new HashMap<>();
     }
 
     /**
@@ -35,69 +30,39 @@ public class Zone {
         return dimension;
     }
 
-    /**
-     * Add a robot at it's current position attribute; if there's a robot at that
-     * position it will be replaced by the new one;
-     *
-     * @param robot the robot to be added
-     * @return this Zone instance
-     */
-    public Zone addRobot(Robot robot) throws IllegalPositionException {
-        validatePosition(robot);
-
-        if (robots.containsKey(robot.getId())) {
-            Robot oldRobot = robots.get(robot.getId());
-            zone.remove(oldRobot.getPosition());
-        }
-
-        robots.put(robot.getId(), robot);
-        zone.put(robot.getPosition(), robot);
-
-        return this;
+    public Optional<Robot> compute(Robot robot, Function<Robot, Robot> fn) {
+        return Optional.of(robot)
+                .map(fn)
+                .filter(this::validatePosition);
     }
 
     /**
      * Validates if the given robot has a valid position.
      *
      * @param robot a robot to be validated
-     * @throws IllegalPositionException when Robot's position is not valid
      */
-    private void validatePosition(Robot robot) throws IllegalPositionException {
+    private Boolean validatePosition(Robot robot) {
         Position position = robot.getPosition();
-        if (isPositionBelowZoneLowerBound(position) || isPositionOverZoneUpperBound(position)) {
-            throw new IllegalPositionException(String.format("Robot's position [%s] is out of the Zone Bounds [%s]", robot.getPosition().toString(), dimension.toString()));
-        }
-
-
+        return !(isPositionBelowZoneLowerBound(position) || isPositionOverZoneUpperBound(position));
     }
 
-    /**
-     * fetches the Robot at a given position; if it doesn't exists, returns
-     * a {@code Optional.Empty}
-     *
-     * @param position the position of a robot
-     * @return a {@code Optional<Robot>} if it exists; otherwise an Optional.Empty
-     */
-    public Optional<Robot> getRobotAtPosition(Position position) {
-        return Optional.ofNullable(zone.get(position));
-    }
 
     /**
      * isPositionBelowZoneLowerBound is a predicate that validates if
      * a given Position is below this Zone lower bound. A Zone Dimension uses a
      * zero based logic; hence, its lower bound is <b>always</b> zero, thus any
      * valid position must obey the following predicate:
-     *
+     * <p>
      * <pre>
      *     For all valid Position (x, y); x >= 0 AND y >= 0;
      * </pre>
-     *
+     * <p>
      * Hence, isPositionBelowZoneLowerBound is the negation the above rule;
-     *
+     * <p>
      * <pre>
      *     For all invalid Position below a Zone Lower Bound; !(x >= 0) AND !(y >= 0)
      * </pre>
-     *
+     * <p>
      * This negation is implemented as an inversion.
      *
      * @param position a position to be validated
@@ -113,20 +78,20 @@ public class Zone {
      * object, received on construction time. The logic is based on the classic
      * XxY notation (e.g. 5x5) being x the length and y the height of a Zone, thus
      * the predicate that defines a valid position is:
-     *
+     * <p>
      * <pre>
      *     For all valid Position (x, y) on a Zone with Dimension (length, height); x < dimension.length AND y < dimension.height
      * </pre>
-     *
+     * <p>
      * A Zone dimension use a zero based logic, thus, for a Position (x, y), x AND y must
      * be below the Dimension length and height.
-     *
+     * <p>
      * isPositionOverZoneUpperBound is the negation of the above rule.
-     *
+     * <p>
      * <pre>
      *     For all invalid Position above a Zone Upper Bound; !(x < dimension.length) AND !(y < dimension.height)
      * </pre>
-     *
+     * <p>
      * This negation is implemented as an inversion.
      *
      * @param position a position to be validated
@@ -136,13 +101,4 @@ public class Zone {
         return position.getX() >= dimension.getLength() || position.getY() >= dimension.getHeight();
     }
 
-    /**
-     * Obtains a Robot by it's id.
-     *
-     * @param robotId the Robot id to be searched
-     * @return return the found Robot or a Optional.Empty otherwise
-     */
-    public Optional<Robot> getRobotById(Integer robotId) {
-        return Optional.ofNullable(robots.get(robotId));
-    }
 }
