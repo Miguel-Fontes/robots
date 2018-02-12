@@ -10,13 +10,11 @@ public class Robot {
     private final Integer id;
     private final Direction direction;
     private final Position position;
-    private final Integer speed;
 
-    public Robot(Integer id, Direction direction, Position position, Integer speed) {
+    public Robot(Integer id, Direction direction, Position position) {
         this.id = id;
         this.direction = direction;
         this.position = position;
-        this.speed = speed;
     }
 
     public Position getPosition() {
@@ -24,11 +22,11 @@ public class Robot {
     }
 
     public Robot turnLeft() {
-        return new Robot(id, direction.left(), position, 1);
+        return new Robot(id, direction.left(), position);
     }
 
     public Robot turnRight() {
-        return new Robot(id, direction.right(), position, 1);
+        return new Robot(id, direction.right(), position);
     }
 
     /**
@@ -44,26 +42,26 @@ public class Robot {
 
         switch (direction) {
             case NORTH:
-                newPosition = new Position(position.getX(), position.getY() + speed);
+                newPosition = new Position(position.getX(), position.getY() + 1);
                 break;
 
             case EAST:
-                newPosition = new Position(position.getX() + speed, position.getY());
+                newPosition = new Position(position.getX() + 1, position.getY());
                 break;
 
             case SOUTH:
-                newPosition = new Position(position.getX(), position.getY() - speed);
+                newPosition = new Position(position.getX(), position.getY() - 1);
                 break;
 
             case WEST:
-                newPosition = new Position(position.getX() - speed, position.getY());
+                newPosition = new Position(position.getX() - 1, position.getY());
                 break;
 
             default:
                 newPosition = position;
         }
 
-        return new Robot(id, direction, newPosition, 1);
+        return new Robot(id, direction, newPosition);
     }
 
     public Integer getId() {
@@ -80,7 +78,6 @@ public class Robot {
                 "id=" + id +
                 ", direction=" + direction +
                 ", position=" + position +
-                ", speed=" + speed +
                 '}';
     }
 }

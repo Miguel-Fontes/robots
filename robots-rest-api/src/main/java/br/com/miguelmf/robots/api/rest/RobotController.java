@@ -1,5 +1,12 @@
 package br.com.miguelmf.robots.api.rest;
 
+import br.com.miguelmf.robots.core.IllegalPositionException;
+import br.com.miguelmf.robots.port.nasa.Nasa;
+import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
+import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;
+import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,46 +14,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+
 @RestController
-@RequestMapping("/rest/mars")
+@RequestMapping(value = "/rest/mars", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 public class RobotController {
 
-    // http://localhost:8080/rest/mars/MMRMMRMM
+    private final Nasa api;
 
-    @RequestMapping(value = "/{instructions}", method = RequestMethod.POST)
+    @Autowired
+    public RobotController(Nasa api) {
+        this.api = api;
+    }
+
+    @RequestMapping(value = "/{command}", method = RequestMethod.POST)
     @ResponseBody
-    ResponseEntity<?> home(@PathVariable("instructions") String instructions) {
-        return ResponseEntity.status(200).body(new Response(200, "(1, 2, N)"));
-    }
+    public ResponseEntity<?> computeRobotCommands(@PathVariable("command") String command) {
+        try {
+            ComputeRobotCommandResponse response = api.compute(new ComputeRobotCommandRequest(command));
 
+            return ResponseEntity
+                    .status(200)
+                    .body(response);
 
-    class Response {
-        private Integer code;
-        private String message;
-
-        public Response() {
-        }
-
-        public Response(Integer code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
-        public Integer getCode() {
-            return code;
-        }
-
-        public void setCode(Integer code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
+        } catch (IllegalPositionException | IllegalCommandException e) {
+            return ResponseEntity
+                    .status(400)
+                    .body(e.getMessage());
         }
     }
-
 }

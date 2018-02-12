@@ -11,6 +11,7 @@ import static br.com.miguelmf.robots.core.utils.TestUtils.newRobotAtZeroPosition
 import static br.com.miguelmf.robots.core.utils.TestUtils.newRobotAtZeroPositionFacingNorth;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -90,6 +91,24 @@ class ZoneTest {
 
                 () -> assertTrue(exception3.getMessage().startsWith(String.format("Robot's position [%s] is out of the Zone Bounds [%s]",
                         invalidPosition3.toString(), dimension.toString())))
+        );
+
+    }
+
+    @Test
+    @DisplayName("should find a robot by its id or return a Optional.Empty otherwise")
+    void getRobotById() throws IllegalPositionException {
+        Dimension dimension = new Dimension(5, 5);
+        Zone zone = new Zone(dimension);
+        Robot robot = newRobotAtZeroPositionFacingNorth();
+        zone.addRobot(robot);
+
+        Optional<Robot> expectedToBePresent = zone.getRobotById(robot.getId());
+        Optional<Robot> expectedToBeEmpty = zone.getRobotById(999);
+
+        assertAll(
+                () -> assertTrue(expectedToBePresent.isPresent(), String.format("Robot with id [%s] not found!", robot.getId())),
+                () -> assertFalse(expectedToBeEmpty.isPresent(), String.format("Robot with inexistent id [%s] was found!", 999))
         );
 
     }

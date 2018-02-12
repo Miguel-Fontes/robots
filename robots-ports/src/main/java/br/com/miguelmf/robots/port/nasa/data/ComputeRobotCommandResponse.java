@@ -1,5 +1,9 @@
 package br.com.miguelmf.robots.port.nasa.data;
 
+import br.com.miguelmf.robots.core.Direction;
+import br.com.miguelmf.robots.core.Position;
+import br.com.miguelmf.robots.core.Robot;
+
 /**
  * ComputeRobotCommandResponse encapsulates data returned by
  * {@link br.com.miguelmf.robots.port.nasa.usecase.ComputeRobotCommand}
@@ -8,7 +12,7 @@ package br.com.miguelmf.robots.port.nasa.data;
  */
 public class ComputeRobotCommandResponse {
 
-    private final String robotFinalPosition;
+    private String robotFinalPosition;
 
     /**
      * Constructor for compatibility with frameworks.
@@ -29,6 +33,22 @@ public class ComputeRobotCommandResponse {
     }
 
     /**
+     * Builds a ComputeRobotCommandResponse from a Robot
+     *
+     * @param robot the robot from which the position should be extract
+     */
+    public ComputeRobotCommandResponse(Robot robot) {
+        this.robotFinalPosition = formatRobotFinalPositionAsString(robot);
+    }
+
+    /**
+     * Sets robotFinalPosition
+     */
+    public void setRobotFinalPosition(String robotFinalPosition) {
+        this.robotFinalPosition = robotFinalPosition;
+    }
+
+    /**
      * Gets robotFinalPosition
      *
      * @return value of robotFinalPosition
@@ -42,5 +62,31 @@ public class ComputeRobotCommandResponse {
         return "ComputeRobotCommandResponse{" +
                 "robotFinalPosition='" + robotFinalPosition + '\'' +
                 '}';
+    }
+
+    /**
+     * Creates a new ComputeRobotCommandResponse from a Robot instance, extracting
+     * the required data for instance creation
+     *
+     * @param robot the robot from which the data will be fetched
+     * @return a ComputeRobotCommandResponse with the data copied from the give Robot instance
+     */
+    public static ComputeRobotCommandResponse from(Robot robot) {
+        return new ComputeRobotCommandResponse(
+                formatRobotFinalPositionAsString(robot));
+    }
+
+    /**
+     * formatRobotFinalPositionAsString formats the robot current position
+     * as (x, y, direction). E.g. (1, 2, N).
+     *
+     * @param robot the Robot from which the data should be extracted
+     * @return the robots final position formatted as a String
+     */
+    private static String formatRobotFinalPositionAsString(Robot robot) {
+        Position position = robot.getPosition();
+        Direction direction = robot.getDirection();
+
+        return String.format("(%s, %s, %s)", position.getX(), position.getY(), direction.getDirection());
     }
 }
