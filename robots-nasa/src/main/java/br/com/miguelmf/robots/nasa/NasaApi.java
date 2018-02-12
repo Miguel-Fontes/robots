@@ -10,6 +10,7 @@ import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;
 import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
 import br.com.miguelmf.robots.port.nasa.exception.RobotNotFoundException;
+import org.springframework.stereotype.Service;
 
 import static br.com.miguelmf.robots.core.Direction.NORTH;
 
@@ -18,6 +19,7 @@ import static br.com.miguelmf.robots.core.Direction.NORTH;
  *
  * @author Miguel Fontes
  */
+@Service
 public class NasaApi implements Nasa {
 
     private Zone zone;
@@ -71,7 +73,7 @@ public class NasaApi implements Nasa {
                 robot = robot.turnLeft();
                 break;
             default:
-                throw new IllegalCommandException (String.format("The command [%s] is invalid!", commandKey));
+                throw new IllegalCommandException (String.format("The [%s] command is invalid!", commandKey));
         }
 
         return robot;
