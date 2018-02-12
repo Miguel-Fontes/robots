@@ -80,4 +80,21 @@ class RobotControllerTest {
         assertEquals("The [A] command is invalid!", result.getResponseBody());
     }
 
+
+    @Test
+    @DisplayName("should return error for movement outside of zone bounds")
+    void shouldRetornErrorForMovementOutsideOfZoneBounds() throws Exception {
+        EntityExchangeResult<String> result =
+                client.post().uri("/rest/mars/MMMMMMM")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .exchange()
+                        .expectStatus().isBadRequest()
+                        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .expectBody(String.class)
+                        .returnResult();
+
+        assertEquals("Robot's position [Position{x=0, y=7}] is out of the Zone Bounds [Dimension{length=5, height=5}]",
+                result.getResponseBody());
+    }
+
 }
