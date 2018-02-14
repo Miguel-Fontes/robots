@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.miguelmf</groupId>
@@ -21,8 +22,7 @@
         <connection>scm:git:git@github.com:Miguel-Fontes/robots.git</connection>
         <url>scm:git:git@github.com:Miguel-Fontes/robots.git</url>
         <developerConnection>scm:git:git@github.com:Miguel-Fontes/robots.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -37,7 +37,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <github.global.server>github</github.global.server>
     </properties>
 
     <build>
@@ -81,7 +80,9 @@
                     <noJekyll>true</noJekyll>
                     <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
                     <branch>refs/heads/mvn-repo</branch>
-                    <includes><include>**/*</include></includes>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
                     <repositoryName>robots</repositoryName>
                     <repositoryOwner>Miguel-Fontes</repositoryOwner>
                 </configuration>
@@ -100,11 +101,19 @@
                 <version>3.0.0</version>
                 <executions>
                     <execution>
+                        <id>aggregate</id>
+                        <phase>site</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>javadoc</goal>
+                            <goal>aggregate</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7</version>
             </plugin>
         </plugins>
     </build>

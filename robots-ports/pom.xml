@@ -11,8 +11,8 @@
     <packaging>jar</packaging>
 
     <name>robots-ports</name>
-    <url>http://maven.apache.org</url>
-    <description>JUnit 5 + Compiler Source/Target 1.8</description>
+    <url>https://github.com/Miguel-Fontes/robots</url>
+    <description>Definição das portas da aplicação: contratos, dtos, e outros dados</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,12 +42,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.0.0</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>br.com.miguelmf</groupId>
             <artifactId>robots-core</artifactId>
