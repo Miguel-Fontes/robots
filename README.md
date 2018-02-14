@@ -42,11 +42,11 @@ Para o funcionamento do Script, garanta:
 A aplicação ficará disponível na porta 8080. Utilize `CTRL + C` para encerrá-la.
 
 ### Testes
-O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos na seção [Cenários de Teste](#Cenários de Teste). Execute-o passando o argumento `test`
+O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos na seção [Cenários de Teste](#cenários-de-teste). Execute-o passando o argumento `test`
 
     ./run.sh test
 
-Lembre-se de que o diretório de trabalho atual deve ser o diretório atual do script (veja seção anterior [Execução](#Exceução)). A aplicação será inicializada, e então os testes serão executados, gerando saída similar à:
+Lembre-se de que o diretório de trabalho atual deve ser o diretório atual do script (veja seção anterior [Execução](#execução)). A aplicação será inicializada, e então os testes serão executados, gerando saída similar à:
 
     > EXECUTING APPLICATION TESTS ----------------------------------------------------------------------
     > 1. Movimento com rotações para direita
