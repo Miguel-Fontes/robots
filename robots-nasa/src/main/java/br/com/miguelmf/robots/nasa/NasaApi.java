@@ -48,7 +48,7 @@ public class NasaApi implements Nasa {
                                 robot -> executeCommands(request.getCommand(), robot))
 
                         .orElseThrow(() -> new IllegalPositionException(
-                                String.format("The command [%s] results on a illegal Robot position!", request.getCommand()))));
+                                String.format("The command [%s] results on an illegal Robot position!", request.getCommand()))));
     }
 
     /**
@@ -112,12 +112,12 @@ public class NasaApi implements Nasa {
     /**
      * RobotCommand is a functional interface that represents a Command to be executed
      * on a Robot. It is basically a {@link java.util.function.Function}, but with a
-     * semantic name.
+     * semantic name (and no Generics).
      *
      * @author Miguel Fontes
      */
     @FunctionalInterface
-    interface RobotCommand {
+    private interface RobotCommand {
         Robot apply(Robot robot);
     }
 }

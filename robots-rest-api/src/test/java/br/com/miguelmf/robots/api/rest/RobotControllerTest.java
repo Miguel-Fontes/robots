@@ -69,33 +69,33 @@ class RobotControllerTest {
     @Test
     @DisplayName("should return error for invalid command")
     void shouldReturnErrorForInvalidCommand() throws Exception {
-        EntityExchangeResult<String> result =
+        EntityExchangeResult<ErrorResponse> result =
                 client.post().uri("/rest/mars/MMRMMMLLLAMMRRML")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .exchange()
                         .expectStatus().isBadRequest()
                         .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .expectBody(String.class)
+                        .expectBody(ErrorResponse.class)
                         .returnResult();
 
-        assertTrue(result.getResponseBody().startsWith("The [A] command is invalid! Supported commands are" ));
+        assertTrue(result.getResponseBody().getError().startsWith("The [A] command is invalid! Supported commands are" ));
     }
 
 
     @Test
     @DisplayName("should return error for movement outside of zone bounds")
     void shouldRetornErrorForMovementOutsideOfZoneBounds() throws Exception {
-        EntityExchangeResult<String> result =
+        EntityExchangeResult<ErrorResponse> result =
                 client.post().uri("/rest/mars/MMMMMMM")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .exchange()
                         .expectStatus().isBadRequest()
                         .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .expectBody(String.class)
+                        .expectBody(ErrorResponse.class)
                         .returnResult();
 
-        assertEquals("The command [MMMMMMM] results on a illegal Robot position!",
-                result.getResponseBody());
+        assertEquals("The command [MMMMMMM] results on an illegal Robot position!",
+                result.getResponseBody().getError());
     }
 
 }

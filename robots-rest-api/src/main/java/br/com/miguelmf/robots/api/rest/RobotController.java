@@ -6,7 +6,6 @@ import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;
 import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +39,7 @@ public class RobotController {
         } catch (IllegalPositionException | IllegalCommandException e) {
             return ResponseEntity
                     .status(400)
-                    .body(e.getMessage());
+                    .body(new ErrorResponse(e.getMessage()));
         }
     }
 }

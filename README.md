@@ -1,9 +1,17 @@
 # Robots
 
-## Build
-### Instruções
+## Instruções
+### Build
+Utilize o maven para construir os artefatos da aplicação.
 
-    TBD
+    mvn install
+    
+### Execução
+É possível executar a aplicação diretamente através do jar robots-rest-api.jar.
+
+    java -jar robots-rest-api/target/robots-rest-api-<versao>.jar
+
+A aplicação ficará disponível na porta 8080.  
 
 ### Status
 - Master: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=master)](https://travis-ci.org/Miguel-Fontes/robots)
