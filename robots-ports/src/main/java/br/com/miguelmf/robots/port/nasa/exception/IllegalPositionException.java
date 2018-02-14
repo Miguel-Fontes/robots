@@ -6,7 +6,7 @@ package br.com.miguelmf.robots.port.nasa.exception;
  *
  * @author Miguel Fontes
  */
-public class IllegalPositionException extends Exception {
+public class IllegalPositionException extends RuntimeException {
 
     public IllegalPositionException(String message) {
         super(message);

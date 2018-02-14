@@ -34,14 +34,15 @@ public class NasaApi implements Nasa {
     }
 
     /**
-     * Compute a Robot command and return it's final position. Before computing a command,
-     * the inner Zone will be reset
+     * Computes a command on a Robot at Position (0, 0) on a new Zone of Dimension (5, 5), and returns the Robot final position.
      *
      * @param request a request containing the robot data and command to be computed
-     * @return the Robots final position
+     * @return the Robot's final position
+     * @throws IllegalPositionException when the computation of a command results on a Robot on a Illegal Position
+     * @throws IllegalCommandException when a invalid command is found on the Commands sequence
      */
     @Override
-    public ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException, IllegalCommandException {
+    public ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) {
         return ComputeRobotCommandResponse.from(
                 zoneWithDefaultDimensions()
                         .compute(robotAtZeroPositionFacingNorth(),
@@ -85,6 +86,7 @@ public class NasaApi implements Nasa {
      * @param commands the Commands String to be computed
      * @param robot    the Robot for which the commands are to be executed
      * @return a Robot on the final state, after the commands execution
+     * @throws IllegalCommandException when an invalid command is present on the Commands String
      */
     private Robot executeCommands(String commands, Robot robot) {
         for (char c : commands.toCharArray()) {
