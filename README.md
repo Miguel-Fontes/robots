@@ -64,6 +64,22 @@ Lembre-se de que o diretório de trabalho atual deve ser o diretório atual do s
     .
     .
 
+### Release
+O release da aplicação é efetuado utilizando o maven Release Plugin.
+
+    mvn release:prepare
+    mvn release:perform
+    
+Após o push da tag de versão gerada pelo Maven Release Plugin para o repositório: 
+
+- O Travis CI irá buildar o artefato
+- Executar os testes
+- Caso os testes passem, um novo release no [Github Releases](https://github.com/Miguel-Fontes/robots/releases) será criado.
+
+É possível gerar um `release beta` criando um tag em qualquer commit com a nomenclatura `robots-(beta|alpha|pre)-identificador`, e o mesmo processo de release citado acima será iniciado no Travis CI. Exemplo: `robots-beta-1.3`.
+
+No arquivo `tar.gz` estarão o `jar` executável e o arquivo `run.sh` citados nas seções anteriores ([Execução](#execução)).
+
 ## O Desafio
 Um time de robôs devem ser colocados pela NASA para explorar um terreno em Marte.
 Esse terreno, que é retangular, precisa ser navegado pelos robôs de tal forma que suas câmeras acopladas possam obter uma visão completa da região, enviando essas imagens novamente para a Terra.
