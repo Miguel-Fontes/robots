@@ -30,7 +30,7 @@ Utilize o maven para construir os artefatos da aplicação.
 
     java -jar robots-rest-api/target/robots-rest-api-<versao>.jar
 
-Outra opção é executar o script `run.sh`, presente também no diretório target do módulo `robots-rest-api`
+Outra opção é executar o script `run.sh`, presente também no diretório target do módulo `robots-rest-api`. Considerando que o diretório atual é o raiz do projeto (`/robots`):
 
     cd robots-rest-api/target/ && chmod +x ./run.sh && ./run.sh
     
