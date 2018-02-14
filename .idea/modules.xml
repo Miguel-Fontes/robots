@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/robots.iml" filepath="$PROJECT_DIR$/robots.iml" />
       <module fileurl="file://$PROJECT_DIR$/robots-core/robots-core.iml" filepath="$PROJECT_DIR$/robots-core/robots-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robots-nasa/robots-nasa.iml" filepath="$PROJECT_DIR$/robots-nasa/robots-nasa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robots-ports/robots-ports.iml" filepath="$PROJECT_DIR$/robots-ports/robots-ports.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robots-rest-api/robots-rest-api.iml" filepath="$PROJECT_DIR$/robots-rest-api/robots-rest-api.iml" />
     </modules>
   </component>
 </project>

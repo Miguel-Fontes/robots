@@ -1,13 +1,68 @@
 # Robots
 
-## Build
-### Instruções
+<!-- TOC -->
 
-    TBD
+- [Robots](#robots)
+    - [Status](#status)
+    - [Instruções](#instruções)
+        - [Build](#build)
+        - [Execução](#execução)
+        - [Testes](#testes)
+    - [O Desafio](#o-desafio)
+        - [Requisitos](#requisitos)
+        - [Cenários de Teste](#cenários-de-teste)
+        - [Requisitos técnicos](#requisitos-técnicos)
 
-### Status
+<!-- /TOC -->
+
+## Status
 - Master: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=master)](https://travis-ci.org/Miguel-Fontes/robots)
 - Dev: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=dev)](https://travis-ci.org/Miguel-Fontes/robots)
+
+## Instruções
+### Build
+Utilize o maven para construir os artefatos da aplicação.
+
+    mvn install
+    
+### Execução
+É possível executar a aplicação diretamente através do jar robots-rest-api.jar.
+
+    java -jar robots-rest-api/target/robots-rest-api-<versao>.jar
+
+Outra opção é executar o script `run.sh`, presente também no diretório target do módulo `robots-rest-api`. Considerando que o diretório atual é o raiz do projeto (`/robots`):
+
+    cd robots-rest-api/target/ && chmod +x ./run.sh && ./run.sh
+    
+Para o funcionamento do Script, garanta: 
+- O mesmo possui direito de execução como aplicação (`chmod +x`)
+- O diretório de trabalho atual (pwd) é o em que o script se encontra
+- Que o JAR da aplicação esteja no mesmo diretório do script
+
+A aplicação ficará disponível na porta 8080. Utilize `CTRL + C` para encerrá-la.
+
+### Testes
+O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos na seção [Cenários de Teste](#cenários-de-teste). Execute-o passando o argumento `test`
+
+    ./run.sh test
+
+Lembre-se de que o diretório de trabalho atual deve ser o diretório atual do script (veja seção anterior [Execução](#execução)). A aplicação será inicializada, e então os testes serão executados, gerando saída similar à:
+
+    > EXECUTING APPLICATION TESTS ----------------------------------------------------------------------
+    > 1. Movimento com rotações para direita
+    - Saída esperada: HTTP 200; (2, 0, S)
+    Output: {"robotFinalPosition":"(2, 0, S)"}
+    
+    > 2. Movimento para esquerda
+    - Saída esperada: HTTP 200; (0, 2, W)
+    Output: {"robotFinalPosition":"(0, 2, W)"}
+    
+    > 3. Repetição da requisição com movimento para esquerda
+    - Saída esperada: HTTP200; (0, 2, W)
+    Output: {"robotFinalPosition":"(0, 2, W)"}
+    .
+    .
+    .
 
 ## O Desafio
 Um time de robôs devem ser colocados pela NASA para explorar um terreno em Marte.

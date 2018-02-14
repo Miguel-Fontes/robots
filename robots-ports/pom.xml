@@ -7,12 +7,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>robots-core</artifactId>
+    <artifactId>robots-ports</artifactId>
     <packaging>jar</packaging>
 
-    <name>robots-core</name>
-    <url>https://github.com/Miguel-Fontes</url>
-    <description>Core da aplicação robots, contendo o domínio do problema</description>
+    <name>robots-ports</name>
+    <url>http://maven.apache.org</url>
+    <description>JUnit 5 + Compiler Source/Target 1.8</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,6 +47,11 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.0.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>br.com.miguelmf</groupId>
+            <artifactId>robots-core</artifactId>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

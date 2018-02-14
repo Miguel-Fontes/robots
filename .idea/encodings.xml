@@ -3,5 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/robots-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/robots-nasa" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/robots-ports" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/robots-rest-api" charset="UTF-8" />
   </component>
 </project>

@@ -3,7 +3,6 @@ package br.com.miguelmf.robots.core;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static br.com.miguelmf.robots.core.utils.TestUtils.ROBOT_DEFAULT_SPEED;
 import static br.com.miguelmf.robots.core.utils.TestUtils.newRobotAtZeroPositionFacing;
 import static br.com.miguelmf.robots.core.utils.TestUtils.newRobotAtZeroPositionFacingNorth;
 import static br.com.miguelmf.robots.core.Direction.EAST;
@@ -67,19 +66,19 @@ class RobotTest {
         Robot robotEast = newRobotAtZeroPositionFacing(EAST);
 
         assertEquals(
-                new Position(0, 0 + ROBOT_DEFAULT_SPEED),
+                new Position(0, 1),
                 robotNorth.move().getPosition());
 
         assertEquals(
-                new Position(0 - ROBOT_DEFAULT_SPEED, 0),
+                new Position(-1, 0),
                 robotWest.move().getPosition());
 
         assertEquals(
-                new Position(0, 0 - ROBOT_DEFAULT_SPEED),
+                new Position(0, -1),
                 robotSouth.move().getPosition());
 
         assertEquals(
-                new Position(0 + ROBOT_DEFAULT_SPEED, 0),
+                new Position(1, 0),
                 robotEast.move().getPosition());
     }
 

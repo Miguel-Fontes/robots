@@ -7,16 +7,12 @@ package br.com.miguelmf.robots.core;
  * @author Miguel Fontes
  */
 public class Robot {
-    private final Integer id;
     private final Direction direction;
     private final Position position;
-    private final Integer speed;
 
-    public Robot(Integer id, Direction direction, Position position, Integer speed) {
-        this.id = id;
+    public Robot(Direction direction, Position position) {
         this.direction = direction;
         this.position = position;
-        this.speed = speed;
     }
 
     public Position getPosition() {
@@ -24,11 +20,11 @@ public class Robot {
     }
 
     public Robot turnLeft() {
-        return new Robot(id, direction.left(), position, 1);
+        return new Robot(direction.left(), position);
     }
 
     public Robot turnRight() {
-        return new Robot(id, direction.right(), position, 1);
+        return new Robot(direction.right(), position);
     }
 
     /**
@@ -44,26 +40,26 @@ public class Robot {
 
         switch (direction) {
             case NORTH:
-                newPosition = new Position(position.getX(), position.getY() + speed);
+                newPosition = new Position(position.getX(), position.getY() + 1);
                 break;
 
             case EAST:
-                newPosition = new Position(position.getX() + speed, position.getY());
+                newPosition = new Position(position.getX() + 1, position.getY());
                 break;
 
             case SOUTH:
-                newPosition = new Position(position.getX(), position.getY() - speed);
+                newPosition = new Position(position.getX(), position.getY() - 1);
                 break;
 
             case WEST:
-                newPosition = new Position(position.getX() - speed, position.getY());
+                newPosition = new Position(position.getX() - 1, position.getY());
                 break;
 
             default:
                 newPosition = position;
         }
 
-        return new Robot(id, direction, newPosition, 1);
+        return new Robot(direction, newPosition);
     }
 
     public Direction getDirection() {
@@ -73,10 +69,8 @@ public class Robot {
     @Override
     public String toString() {
         return "Robot{" +
-                "id=" + id +
-                ", direction=" + direction +
+                "direction=" + direction +
                 ", position=" + position +
-                ", speed=" + speed +
                 '}';
     }
 }
