@@ -12,13 +12,26 @@ import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
 import br.com.miguelmf.robots.port.nasa.exception.IllegalPositionException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 /**
- * NasaApi implements the functions defined at the Nasa application contract
+ * NasaApi implements the functions defined at the Nasa application contract.
  *
  * @author Miguel Fontes
  */
 @Service
 public class NasaApi implements Nasa {
+
+    private Map<Character, RobotCommand> supportedCommands;
+
+    public NasaApi() {
+        this.supportedCommands =  new HashMap<>();
+        supportedCommands.put('M', Robot::move);
+        supportedCommands.put('R', Robot::turnRight);
+        supportedCommands.put('L', Robot::turnLeft);
+    }
 
     /**
      * Compute a Robot command and return it's final position. Before computing a command,
@@ -53,10 +66,10 @@ public class NasaApi implements Nasa {
 
     /**
      * Initialize a new Robot with attributes:
-     *
+     * <p>
      * <ul>
-     *     <li>Position (0, 0)</li>
-     *     <li>Direction.NORTH</li>
+     * <li>Position (0, 0)</li>
+     * <li>Direction.NORTH</li>
      * </ul>
      *
      * @return a Robot at Position (0, 0) facing North
@@ -70,7 +83,7 @@ public class NasaApi implements Nasa {
      * executes them one by one on a given Robot.
      *
      * @param commands the Commands String to be computed
-     * @param robot the Robot for which the commands are to be executed
+     * @param robot    the Robot for which the commands are to be executed
      * @return a Robot on the final state, after the commands execution
      */
     private Robot executeCommands(String commands, Robot robot) {
@@ -82,28 +95,29 @@ public class NasaApi implements Nasa {
     }
 
     /**
-     * executeCommand executes a command indicated by a character named Command Key
+     * executeCommand executes a command indicated by a character named Command Key. The command key
+     * is searched at the supported commands HashMap initialized at this class constructor.
      *
      * @param commandKey a character indicating a command to execute
      * @param robot      a robot for which the commands will be executed
      * @return the Robot on the new state after executing the command
      * @throws IllegalCommandException when an invalid command is received
      */
-    public Robot executeCommand(char commandKey, Robot robot) {
-        switch (commandKey) {
-            case 'M':
-                robot = robot.move();
-                break;
-            case 'R':
-                robot = robot.turnRight();
-                break;
-            case 'L':
-                robot = robot.turnLeft();
-                break;
-            default:
-                throw new IllegalCommandException(String.format("The [%s] command is invalid!", commandKey));
-        }
+    private Robot executeCommand(char commandKey, Robot robot) {
+        return Optional.ofNullable(supportedCommands.get(commandKey))
+                .orElseThrow(() -> new IllegalCommandException(String.format("The [%s] command is invalid! Supported commands are %s", commandKey, supportedCommands.keySet())))
+                .apply(robot);
+    }
 
-        return robot;
+    /**
+     * RobotCommand is a functional interface that represents a Command to be executed
+     * on a Robot. It is basically a {@link java.util.function.Function}, but with a
+     * semantic name.
+     *
+     * @author Miguel Fontes
+     */
+    @FunctionalInterface
+    interface RobotCommand {
+        Robot apply(Robot robot);
     }
 }

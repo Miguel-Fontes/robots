@@ -12,6 +12,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
@@ -77,7 +78,7 @@ class RobotControllerTest {
                         .expectBody(String.class)
                         .returnResult();
 
-        assertEquals("The [A] command is invalid!", result.getResponseBody());
+        assertTrue(result.getResponseBody().startsWith("The [A] command is invalid! Supported commands are" ));
     }
 
 
