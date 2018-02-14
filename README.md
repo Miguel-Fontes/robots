@@ -30,20 +30,23 @@ Utilize o maven para construir os artefatos da aplicação.
 
     java -jar robots-rest-api/target/robots-rest-api-<versao>.jar
 
-Outra opção é executar o script `run.sh`, presente também no diretório target
+Outra opção é executar o script `run.sh`, presente também no diretório target do módulo `robots-rest-api`
 
-    robots-rest-api/target/run.sh
+    cd robots-rest-api/target/ && chmod +x ./run.sh && ./run.sh
     
-Para o funcionamento do Script, garanta que o mesmo possui direito de execução como aplicação (`chmod +x`).
+Para o funcionamento do Script, garanta: 
+- O mesmo possui direito de execução como aplicação (`chmod +x`)
+- O diretório de trabalho atual (pwd) é o em que o script se encontra
+- Que o JAR da aplicação esteja no mesmo diretório do script
 
-A aplicação ficará disponível na porta 8080.
+A aplicação ficará disponível na porta 8080. Utilize `CTRL + C` para encerrá-la.
 
 ### Testes
 O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos na seção [Cenários de Teste](#Cenários de Teste). Execute-o passando o argumento `test`
 
-    robots-rest-api/target/run.sh test
+    ./run.sh test
 
-A aplicação será inicializada, e então os testes serão executados, gerando saída similar à:
+Lembre-se de que o diretório de trabalho atual deve ser o diretório atual do script (veja seção anterior [Execução](#Exceução)). A aplicação será inicializada, e então os testes serão executados, gerando saída similar à:
 
     > EXECUTING APPLICATION TESTS ----------------------------------------------------------------------
     > 1. Movimento com rotações para direita

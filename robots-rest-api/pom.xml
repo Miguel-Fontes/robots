@@ -20,7 +20,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <assets.artifact.name>${project.build.finalName}.${project.packaging}</assets.artifact.name>
+        <assets.artifact.name-pattern>${project.name}*.${project.packaging}</assets.artifact.name-pattern>
         <assets.artifact.output-path>${project.build.directory}</assets.artifact.output-path>
     </properties>
 

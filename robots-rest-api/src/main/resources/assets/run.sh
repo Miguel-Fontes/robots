@@ -57,4 +57,4 @@ if [ "$1" == 'test' ]; then
 executeTests &
 fi
 
-java -jar ${assets.artifact.output-path}/${assets.artifact.name} && APP_PID=$! && trap 'kill "$APP_PID"' SIGINT SIGTSTP
+java -jar $PWD/${assets.artifact.name-pattern} && APP_PID=$! && trap 'kill "$APP_PID"' SIGINT SIGTSTP
