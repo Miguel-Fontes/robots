@@ -1,7 +1,8 @@
 package br.com.miguelmf.robots.core;
 
 /**
- * Direction contains the possible directions for a ROBOT
+ * Direction contains the possible directions for a Robot, being NORTH, EAST, SOUTH and EAST. Provides as well
+ * functions to 'navigate' through these directions easily.
  *
  * @author Miguel Fontes
  */
@@ -26,6 +27,11 @@ public enum Direction {
         throw new IllegalArgumentException("No enum constant with abbrv " + abbrv + " found");
     }
 
+    /**
+     * Compute the Direction to the left of the current Direction
+     *
+     * @return the Direction to the left of the current Direction
+     */
     public Direction left() {
         int currentDirectionIndex = fromString(this.direction).ordinal();
         int lastDirectionElementIndex = Direction.values().length - 1;
@@ -35,6 +41,11 @@ public enum Direction {
                 : Direction.values()[lastDirectionElementIndex];
     }
 
+    /**
+     * Compute the Direction to the right of the current Direction
+     *
+     * @return the Direction to the right of the current Direction
+     */
     public Direction right() {
         int currentDirectionIndex = fromString(this.direction).ordinal();
         int lastDirectionElementIndex = Direction.values().length - 1;
