@@ -7,12 +7,27 @@ package br.com.miguelmf.robots.api.rest;
  * @author Miguel Fontes
  */
 public class ErrorResponse {
-    String error;
+    private final Integer code;
+    private final String error;
 
+    /**
+     * Constructor for compatibility with frameworks.
+     * <b>DO NOT USE IT DIRECTLY!</b>
+     */
+    @Deprecated
     public ErrorResponse() {
+        code = null;
+        error = null;
     }
 
-    public ErrorResponse(String error) {
+    /**
+     * Builds a ErrorResponse
+     *
+     * @param code http status code of the response
+     * @param error the error message
+     */
+    public ErrorResponse(Integer code, String error) {
+        this.code = code;
         this.error = error;
     }
 
@@ -26,9 +41,11 @@ public class ErrorResponse {
     }
 
     /**
-     * Sets error
+     * Gets code
+     *
+     * @return value of code
      */
-    public void setError(String error) {
-        this.error = error;
+    public Integer getCode() {
+        return code;
     }
 }

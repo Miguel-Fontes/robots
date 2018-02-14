@@ -14,10 +14,12 @@ import br.com.miguelmf.robots.port.nasa.exception.IllegalPositionException;
 public interface ComputeRobotCommand {
 
     /**
-     * Computes a command and returns the Robot final position
+     * Computes a command on a Robot at Position (0, 0) on a new Zone of Dimension (5, 5), and returns the Robot final position.
      *
      * @param request a request containing the robot data and command to be computed
-     * @return the Robot final position and associated data
+     * @return the Robot's final position
+     * @throws IllegalPositionException when the computation of a command results on a Robot on a Illegal Position
+     * @throws IllegalCommandException when a invalid command is found on the Commands sequence
      */
     ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException, IllegalCommandException;
 

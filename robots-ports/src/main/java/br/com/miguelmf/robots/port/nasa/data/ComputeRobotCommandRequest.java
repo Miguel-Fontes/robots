@@ -57,6 +57,16 @@ public class ComputeRobotCommandRequest {
         return command;
     }
 
+    /**
+     * Builds a new ComputeRobotCommandRequest with the give command
+     *
+     * @param command the Robot Commands to be executed
+     * @return a ComputeRobotCommandRequest
+     */
+    public static ComputeRobotCommandRequest of(String command) {
+        return new ComputeRobotCommandRequest(command);
+    }
+
     @Override
     public String toString() {
         return "ComputeRobotCommandRequest{" +
