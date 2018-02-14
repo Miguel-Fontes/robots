@@ -1,5 +1,24 @@
 # Robots
 
+<!-- TOC -->
+
+- [Robots](#robots)
+    - [Status](#status)
+    - [Instruções](#instruções)
+        - [Build](#build)
+        - [Execução](#execução)
+        - [Testes](#testes)
+    - [O Desafio](#o-desafio)
+        - [Requisitos](#requisitos)
+        - [Cenários de Teste](#cenários-de-teste)
+        - [Requisitos técnicos](#requisitos-técnicos)
+
+<!-- /TOC -->
+
+## Status
+- Master: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=master)](https://travis-ci.org/Miguel-Fontes/robots)
+- Dev: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=dev)](https://travis-ci.org/Miguel-Fontes/robots)
+
 ## Instruções
 ### Build
 Utilize o maven para construir os artefatos da aplicação.
@@ -20,15 +39,27 @@ Para o funcionamento do Script, garanta que o mesmo possui direito de execução
 A aplicação ficará disponível na porta 8080.
 
 ### Testes
-O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos abaixo. Execute-o passando o argumento `test`
+O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos na seção [Cenários de Teste](#Cenários de Teste). Execute-o passando o argumento `test`
 
     robots-rest-api/target/run.sh test
 
-A aplicação será inicializada, os testes executados e, então, encerrada.
+A aplicação será inicializada, e então os testes serão executados, gerando saída similar à:
 
-### Status
-- Master: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=master)](https://travis-ci.org/Miguel-Fontes/robots)
-- Dev: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=dev)](https://travis-ci.org/Miguel-Fontes/robots)
+    > EXECUTING APPLICATION TESTS ----------------------------------------------------------------------
+    > 1. Movimento com rotações para direita
+    - Saída esperada: HTTP 200; (2, 0, S)
+    Output: {"robotFinalPosition":"(2, 0, S)"}
+    
+    > 2. Movimento para esquerda
+    - Saída esperada: HTTP 200; (0, 2, W)
+    Output: {"robotFinalPosition":"(0, 2, W)"}
+    
+    > 3. Repetição da requisição com movimento para esquerda
+    - Saída esperada: HTTP200; (0, 2, W)
+    Output: {"robotFinalPosition":"(0, 2, W)"}
+    .
+    .
+    .
 
 ## O Desafio
 Um time de robôs devem ser colocados pela NASA para explorar um terreno em Marte.
