@@ -93,7 +93,7 @@ class RobotControllerTest {
                         .expectBody(String.class)
                         .returnResult();
 
-        assertEquals("Robot's position [Position{x=0, y=7}] is out of the Zone Bounds [Dimension{length=5, height=5}]",
+        assertEquals("The command [MMMMMMM] results on a illegal Robot position!",
                 result.getResponseBody());
     }
 

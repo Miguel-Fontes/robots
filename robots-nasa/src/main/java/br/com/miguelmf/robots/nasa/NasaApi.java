@@ -20,29 +20,59 @@ import org.springframework.stereotype.Service;
 @Service
 public class NasaApi implements Nasa {
 
-    private Zone zone;
-
-    public NasaApi() {
-        initilize();
-    }
-
     /**
-     * Compute a Robot command and return it's final position. Before computing the command
-     * the Zone will be reset.
+     * Compute a Robot command and return it's final position. Before computing a command,
+     * the inner Zone will be reset
      *
      * @param request a request containing the robot data and command to be computed
      * @return the Robots final position
      */
     @Override
     public ComputeRobotCommandResponse compute(ComputeRobotCommandRequest request) throws IllegalPositionException, IllegalCommandException {
-        initilize();
-
         return ComputeRobotCommandResponse.from(
-                zone.compute(new Robot(request.getRobotId(), Direction.NORTH, new Position(0, 0)),
-                        robot -> executeCommands(request.getCommand(), robot))
-                        .orElseThrow(IllegalPositionException::new));
+                zoneWithDefaultDimensions()
+                        .compute(robotAtZeroPositionFacingNorth(),
+                                robot -> executeCommands(request.getCommand(), robot))
+
+                        .orElseThrow(() -> new IllegalPositionException(
+                                String.format("The command [%s] results on a illegal Robot position!", request.getCommand()))));
     }
 
+    /**
+     * Initialize a new blank zone with default parameters
+     * <ul>
+     * <li>Dimension (5, 5)</li>
+     * <li>Default Robot with id 0, Position (0, 0)</li>
+     * </ul>
+     * <p>
+     * This method is executed automatically when an NasaApi is instantiated.
+     */
+    private Zone zoneWithDefaultDimensions() {
+        return new Zone(new Dimension(5, 5));
+    }
+
+    /**
+     * Initialize a new Robot with attributes:
+     *
+     * <ul>
+     *     <li>Position (0, 0)</li>
+     *     <li>Direction.NORTH</li>
+     * </ul>
+     *
+     * @return a Robot at Position (0, 0) facing North
+     */
+    private Robot robotAtZeroPositionFacingNorth() {
+        return new Robot(Direction.NORTH, new Position(0, 0));
+    }
+
+    /**
+     * Transforms the Commands String into a list of Command Keys and
+     * executes them one by one on a given Robot.
+     *
+     * @param commands the Commands String to be computed
+     * @param robot the Robot for which the commands are to be executed
+     * @return a Robot on the final state, after the commands execution
+     */
     private Robot executeCommands(String commands, Robot robot) {
         for (char c : commands.toCharArray()) {
             robot = executeCommand(c, robot);
@@ -75,19 +105,5 @@ public class NasaApi implements Nasa {
         }
 
         return robot;
-    }
-
-    /**
-     * Initialize a new blank zone with default parameters
-     * <ul>
-     * <li>Dimension (5, 5)</li>
-     * <li>Default Robot with id 0, Position (0, 0)</li>
-     * </ul>
-     * <p>
-     * This method is executed automatically when an NasaApi is instantiated.
-     */
-    @Override
-    public void initilize() {
-        zone = new Zone(new Dimension(5, 5));
     }
 }

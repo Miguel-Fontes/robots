@@ -3,10 +3,13 @@ package br.com.miguelmf.robots.core;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Function;
+
 import static br.com.miguelmf.robots.core.Direction.WEST;
 import static br.com.miguelmf.robots.core.utils.TestUtils.moveNTimes;
 import static br.com.miguelmf.robots.core.utils.TestUtils.newRobotAtZeroPositionFacing;
 import static br.com.miguelmf.robots.core.utils.TestUtils.newRobotAtZeroPositionFacingNorth;
+import static java.util.function.Function.identity;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,10 +40,10 @@ class ZoneTest {
         Robot invalidRobot2 = moveNTimes(1, newRobotAtZeroPositionFacing(WEST));
 
         assertAll(
-                () -> assertTrue(zone.compute(validRobot, robot -> robot).isPresent()),
-                () -> assertFalse(zone.compute(limitCaseInvalidRobot, robot -> robot).isPresent()),
-                () -> assertFalse(zone.compute(invalidRobot, robot -> robot).isPresent()),
-                () -> assertFalse(zone.compute(invalidRobot2, robot -> robot).isPresent())
+                () -> assertTrue(zone.compute(validRobot, identity()).isPresent()),
+                () -> assertFalse(zone.compute(limitCaseInvalidRobot, identity()).isPresent()),
+                () -> assertFalse(zone.compute(invalidRobot, identity()).isPresent()),
+                () -> assertFalse(zone.compute(invalidRobot2, identity()).isPresent())
         );
 
     }
