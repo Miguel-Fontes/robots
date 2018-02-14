@@ -19,7 +19,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--<build.plugins.plugin.version></build.plugins.plugin.version>-->
+
+        <assets.artifact.name>${project.build.finalName}.${project.packaging}</assets.artifact.name>
+        <assets.artifact.output-path>${project.build.directory}</assets.artifact.output-path>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +82,31 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-assets-files</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources/assets/</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>run.sh</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
