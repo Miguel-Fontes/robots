@@ -12,6 +12,7 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
@@ -77,7 +78,7 @@ class RobotControllerTest {
                         .expectBody(String.class)
                         .returnResult();
 
-        assertEquals("The [A] command is invalid!", result.getResponseBody());
+        assertTrue(result.getResponseBody().startsWith("The [A] command is invalid! Supported commands are" ));
     }
 
 
@@ -93,7 +94,7 @@ class RobotControllerTest {
                         .expectBody(String.class)
                         .returnResult();
 
-        assertEquals("Robot's position [Position{x=0, y=7}] is out of the Zone Bounds [Dimension{length=5, height=5}]",
+        assertEquals("The command [MMMMMMM] results on a illegal Robot position!",
                 result.getResponseBody());
     }
 

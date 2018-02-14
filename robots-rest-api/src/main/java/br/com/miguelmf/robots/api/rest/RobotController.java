@@ -1,6 +1,6 @@
 package br.com.miguelmf.robots.api.rest;
 
-import br.com.miguelmf.robots.core.IllegalPositionException;
+import br.com.miguelmf.robots.port.nasa.exception.IllegalPositionException;
 import br.com.miguelmf.robots.port.nasa.Nasa;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;

@@ -1,9 +1,9 @@
 package br.com.miguelmf.robots.nasa;
 
-import br.com.miguelmf.robots.core.IllegalPositionException;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandRequest;
 import br.com.miguelmf.robots.port.nasa.data.ComputeRobotCommandResponse;
 import br.com.miguelmf.robots.port.nasa.exception.IllegalCommandException;
+import br.com.miguelmf.robots.port.nasa.exception.IllegalPositionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
