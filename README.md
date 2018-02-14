@@ -11,7 +11,20 @@ Utilize o maven para construir os artefatos da aplicação.
 
     java -jar robots-rest-api/target/robots-rest-api-<versao>.jar
 
-A aplicação ficará disponível na porta 8080.  
+Outra opção é executar o script `run.sh`, presente também no diretório target
+
+    robots-rest-api/target/run.sh
+    
+Para o funcionamento do Script, garanta que o mesmo possui direito de execução como aplicação (`chmod +x`).
+
+A aplicação ficará disponível na porta 8080.
+
+### Testes
+O mesmo script run pode executar testes na aplicação, baseados nos cenários de teste descritos abaixo. Execute-o passando o argumento `test`
+
+    robots-rest-api/target/run.sh test
+
+A aplicação será inicializada, os testes executados e, então, encerrada.
 
 ### Status
 - Master: [![Build Status](https://travis-ci.org/Miguel-Fontes/robots.svg?branch=master)](https://travis-ci.org/Miguel-Fontes/robots)
