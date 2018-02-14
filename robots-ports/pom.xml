@@ -11,8 +11,8 @@
     <packaging>jar</packaging>
 
     <name>robots-ports</name>
-    <url>http://maven.apache.org</url>
-    <description>JUnit 5 + Compiler Source/Target 1.8</description>
+    <url>https://github.com/Miguel-Fontes/robots</url>
+    <description>Definição das portas da aplicação: contratos, dtos, e outros dados</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

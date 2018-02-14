@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <name>robots-core</name>
-    <url>https://github.com/Miguel-Fontes</url>
+    <url>https://github.com/Miguel-Fontes/robots</url>
     <description>Core da aplicação robots, contendo o domínio do problema</description>
 
     <properties>

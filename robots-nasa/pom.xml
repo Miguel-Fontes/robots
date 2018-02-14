@@ -11,8 +11,8 @@
     <packaging>jar</packaging>
 
     <name>robots-nasa</name>
-    <url>http://maven.apache.org</url>
-    <description>JUnit 5 + Compiler Source/Target 1.8</description>
+    <url>https://github.com/Miguel-Fontes/robots</url>
+    <description>Implementação da Porta Nasa, contendo as funcionalidades disponíveis para o cliente</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

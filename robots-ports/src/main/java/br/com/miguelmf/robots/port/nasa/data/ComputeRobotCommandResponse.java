@@ -12,7 +12,7 @@ import br.com.miguelmf.robots.core.Robot;
  */
 public class ComputeRobotCommandResponse {
 
-    private String robotFinalPosition;
+    private final String robotFinalPosition;
 
     /**
      * Constructor for compatibility with frameworks.
@@ -39,13 +39,6 @@ public class ComputeRobotCommandResponse {
      */
     public ComputeRobotCommandResponse(Robot robot) {
         this.robotFinalPosition = formatRobotFinalPositionAsString(robot);
-    }
-
-    /**
-     * Sets robotFinalPosition
-     */
-    public void setRobotFinalPosition(String robotFinalPosition) {
-        this.robotFinalPosition = robotFinalPosition;
     }
 
     /**
